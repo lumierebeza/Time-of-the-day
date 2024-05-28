@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Time of Day</title>
+    <meta name="robots" content="noindex,nofollow">
+    <style>
+        * { padding: 0; margin: 0; }
+        html { background-color: #ccc; }
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            max-width: 960px;
+            width: 90%;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            min-height: 100%;
+        }
+        img.flexible {
+            float: none;
+            display: inline-block;
+            padding: 20px;
+            max-width: 300px;
+            width: 33%;
+        }
+        p { 
+            margin: 10px;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            
+         }
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: normal;
+            margin: 10px;
+            
+        }
+        h1.masthead { margin-top: 0; }
+        footer {
+            text-align: center;
+            clear: both;
+        }
+        #day-time {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #333;
+        }
+        #time {
+            font-size: 1.2em;
+            margin-top: 10px;
+            color: #a81d1d;
+
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="masthead">Time of Day</h1>
+    </header>
+    <main>
+        <header><h3>A JavaScript Project by BEZAWIT TESERA</h3></header>
+        <p>This webpage dynamically changes its background color, image, and greeting <br>message based on the current time of day (morning, afternoon, evening, night) <br>using JavaScript. It also displays the current day of the week and real-time clock, <br>updating every second. Additionally, the footer includes a dynamically updated copyright year. <br>The content and appearance adjust automatically, providing users with a visually and contextually <br>relevant experience depending on the time they visit the page.
+
+
+
+
+
+        </p>
+        <img id="time-image" src="http://dummyimage.com/300x400" alt="Time of Day Image" class="flexible">
+        <p id="time-message"></p>
+        <p id="day-time"></p>
+        <p id="time"></p>
+        <footer>
+            <p><small>&copy; 2022 by Bezawit Tesera, All Rights Reserved ~ 
+                <a id="html-checker" href="#" target="_blank">Check HTML</a> ~ 
+                <a id="css-checker" href="#" target="_blank">Check CSS</a></small>
+            </p>
+        </footer>
+    </main>
+    <script>
+        document.getElementById("html-checker").setAttribute("href", "https://validator.w3.org/nu/?doc=" + location.href);
+        document.getElementById("css-checker").setAttribute("href", "https://jigsaw.w3.org/css-validator/validator?uri=" + location.href);
+
+        function updateContent() {
+            const now = new Date();
+            const hour = now.getHours();
+            const minute = now.getMinutes().toString().padStart(2, '0');
+            const second = now.getSeconds().toString().padStart(2, '0');
+            const day = now.getDay();
+            const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            
+            const footer = document.querySelector('footer small');
+            const timeImage = document.getElementById('time-image');
+            const timeMessage = document.getElementById('time-message');
+            const dayTime = document.getElementById('day-time');
+            const timeDisplay = document.getElementById('time');
+
+            footer.innerHTML = `&copy; 2022-${now.getFullYear()} by Bezawit Tesera, All Rights Reserved ~ 
+                                <a id="html-checker" href="#" target="_blank">Check HTML</a> ~ 
+                                <a id="css-checker" href="#" target="_blank">Check CSS</a>`;
+
+            dayTime.innerHTML = `Today is ${daysOfWeek[day]}`;
+            timeDisplay.innerHTML = `Current time: ${hour}:${minute}:${second}`;
+
+            if (hour >= 5 && hour < 12) {
+                document.body.style.backgroundColor = 'orange';
+                timeMessage.innerHTML = 'Good Morning! Rise and shine!';
+                timeImage.src = 'morning.jpg'; // Use the path to your morning image
+                timeImage.alt = 'Morning Image';
+            } else if (hour >= 12 && hour < 18) {
+                document.body.style.backgroundColor = 'lightblue';
+                timeMessage.innerHTML = 'Good Afternoon! Hope you\'re having a great day!';
+                timeImage.src = 'afternoon.jpg'; // Use the path to your afternoon image
+                timeImage.alt = 'Afternoon Image';
+            } else if (hour >= 18 && hour < 23) {
+                document.body.style.backgroundColor = 'purple';
+                timeMessage.innerHTML = 'Good Evening! Relax and unwind!';
+                timeImage.src = 'evening.jpg'; // Use the path to your evening image
+                timeImage.alt = 'Evening Image';
+            } else {
+                document.body.style.backgroundColor = 'darkblue';
+                timeMessage.innerHTML = 'Good Night! Sleep tight!';
+                timeImage.src = 'night.jpg'; // Use the path to your night image
+                timeImage.alt = 'Night Image';
+            }
+        }
+
+        updateContent();
+        setInterval(updateContent, 1000); // Update the content every second
+    </script>
+</body>
+</html>
